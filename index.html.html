@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDEA Lab — MIT Thandavapura</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans, system-ui, sans-serif);background:transparent}
+
+/* ── HERO ── */
+.hero{
+  background:
+    linear-gradient(135deg, rgba(12,68,124,0.55) 0%, rgba(24,95,165,0.50) 50%, rgba(15,110,86,0.55) 100%),
+    url('Banner Image.png') center center / cover no-repeat;
+  padding:3.5rem 2rem 4rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  min-height:340px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.hero::before{content:'';position:absolute;top:-60px;left:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.05)}
+.hero::after{content:'';position:absolute;bottom:-80px;right:-40px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.04)}
+
+.hero-badge{
+  display:inline-block;
+  background:rgba(255,255,255,0.20);
+  color:#FFE082;
+  font-size:12px;
+  padding:4px 14px;
+  border-radius:20px;
+  margin-bottom:1rem;
+  letter-spacing:0.5px;
+  border:1px solid rgba(255,220,100,0.4);
+  text-shadow:0 1px 4px rgba(0,0,0,0.6);
+}
+
+.hero h1{
+  color:#FFFFFF;
+  font-size:2rem;
+  font-weight:700;
+  line-height:1.25;
+  margin-bottom:0.75rem;
+  text-shadow:0 2px 12px rgba(0,0,0,0.75), 0 1px 3px rgba(0,0,0,0.9);
+}
+
+.hero p{
+  color:#F0F4FF;
+  font-size:15px;
+  max-width:600px;
+  margin:0 auto 1.5rem;
+  line-height:1.7;
+  text-shadow:0 1px 6px rgba(0,0,0,0.7);
+}
+
+.hero p strong{
+  color:#FFE082;
+  font-weight:600;
+}
+
+.hero-tagline{
+  color:#FFE082;
+  font-size:13px;
+  font-style:italic;
+  text-shadow:0 1px 4px rgba(0,0,0,0.6);
+}
+
+.hero-stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:rgba(255,255,255,0.15);
+  border-radius:12px;
+  overflow:hidden;
+  max-width:680px;
+  margin:2rem auto 0;
+  backdrop-filter:blur(6px);
+}
+
+.stat-box{
+  background:rgba(0,20,60,0.55);
+  padding:1rem;
+  text-align:center;
+}
+
+.stat-num{
+  color:#FFE082;
+  font-size:1.5rem;
+  font-weight:600;
+  text-shadow:0 1px 4px rgba(0,0,0,0.5);
+}
+
+.stat-label{
+  color:rgba(255,255,255,0.85);
+  font-size:11px;
+  margin-top:2px;
+}
+
+/* ── NAV ── */
+nav{background:var(--color-background-primary, #fff);border-bottom:0.5px solid var(--color-border-tertiary, #e5e5e5);padding:0 2rem;display:flex;overflow-x:auto}
+.nav-item{padding:0.85rem 1.1rem;font-size:13px;color:var(--color-text-secondary, #666);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color 0.2s}
+.nav-item:hover,.nav-item.active{color:#185FA5;border-bottom-color:#185FA5}
+
+/* ── SECTION HEADINGS — coloured pill/ribbon style ── */
+.section{padding:2.5rem 2rem;max-width:960px;margin:0 auto}
+.section-sub{font-size:13px;color:var(--color-text-secondary, #666);margin-bottom:1.75rem;line-height:1.6}
+
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:0.5rem}
+.sec-head-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-head-text{font-size:1.1rem;font-weight:500;padding:4px 16px;border-radius:6px;letter-spacing:0.01em}
+
+.sh-blue .sec-head-icon{background:#E6F1FB}
+.sh-blue .sec-head-text{background:#E6F1FB;color:#0C447C}
+.sh-teal .sec-head-icon{background:#E1F5EE}
+.sh-teal .sec-head-text{background:#E1F5EE;color:#085041}
+.sh-amber .sec-head-icon{background:#FAEEDA}
+.sh-amber .sec-head-text{background:#FAEEDA;color:#633806}
+.sh-purple .sec-head-icon{background:#EEEDFE}
+.sh-purple .sec-head-text{background:#EEEDFE;color:#3C3489}
+.sh-coral .sec-head-icon{background:#FAECE7}
+.sh-coral .sec-head-text{background:#FAECE7;color:#712B13}
+.sh-green .sec-head-icon{background:#EAF3DE}
+.sh-green .sec-head-text{background:#EAF3DE;color:#27500A}
+
+.sub-head{display:flex;align-items:center;gap:8px;margin:1.75rem 0 0.6rem}
+.sub-head-bar{width:4px;height:22px;border-radius:2px;flex-shrink:0}
+.sub-bar-blue{background:#185FA5}
+.sub-bar-teal{background:#0F6E56}
+.sub-bar-amber{background:#BA7517}
+.sub-bar-purple{background:#534AB7}
+.sub-bar-coral{background:#993C1D}
+.sub-head-label{font-size:13px;font-weight:500;color:var(--color-text-secondary, #666);text-transform:uppercase;letter-spacing:0.5px}
+
+/* ── CARDS ── */
+.cards-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.cards-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+.card{background:var(--color-background-primary, #fff);border:0.5px solid var(--color-border-tertiary, #e5e5e5);border-radius:12px;padding:1.25rem}
+.card-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:0.85rem}
+.icon-blue{background:#E6F1FB}.icon-teal{background:#E1F5EE}.icon-amber{background:#FAEEDA}
+.icon-purple{background:#EEEDFE}.icon-coral{background:#FAECE7}.icon-green{background:#EAF3DE}
+.card h3{font-size:14px;font-weight:500;color:var(--color-text-primary, #111);margin-bottom:0.4rem}
+.card p{font-size:12.5px;color:var(--color-text-secondary, #666);line-height:1.6}
+
+/* ── EQUIP ── */
+.equip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0.75rem}
+.equip-card{background:var(--color-background-secondary, #f5f5f5);border-radius:10px;padding:1rem;display:flex;align-items:flex-start;gap:10px}
+.equip-dot{width:8px;height:8px;border-radius:50%;background:#185FA5;margin-top:5px;flex-shrink:0}
+.equip-text{font-size:13px;color:var(--color-text-primary, #111);font-weight:500;line-height:1.4}
+.equip-sub{font-size:11.5px;color:var(--color-text-secondary, #666);margin-top:2px}
+
+/* ── EQUIPMENT IMAGE GALLERY ── */
+.equip-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:1rem;margin-bottom:2.5rem}
+.equip-img-card{background:var(--color-background-primary,#fff);border:0.5px solid var(--color-border-tertiary,#e5e5e5);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow 0.2s}
+.equip-img-card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.08)}
+.equip-img-wrap{width:100%;height:130px;overflow:hidden;background:var(--color-background-secondary,#f5f5f5);display:flex;align-items:center;justify-content:center;position:relative}
+.equip-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.equip-img-label{font-size:12px;font-weight:500;color:var(--color-text-primary,#111);padding:8px 10px 9px;text-align:center;line-height:1.35;border-top:0.5px solid var(--color-border-tertiary,#e5e5e5);background:var(--color-background-primary,#fff)}
+.equip-img-sub{font-size:10.5px;color:var(--color-text-secondary,#888);padding:0 10px 9px;text-align:center;line-height:1.3;margin-top:-4px}
+
+/* ── ZONE STRIP ── */
+.zone-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border:0.5px solid var(--color-border-tertiary, #e5e5e5);border-radius:12px;overflow:hidden;margin-bottom:2rem}
+.zone{padding:1.25rem 1rem;text-align:center;border-right:0.5px solid var(--color-border-tertiary, #e5e5e5)}
+.zone:last-child{border-right:none}
+.zone-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 0.6rem}
+.zone-name{font-size:13px;font-weight:500;color:var(--color-text-primary, #111)}
+.zone-desc{font-size:11px;color:var(--color-text-secondary, #666);margin-top:3px;line-height:1.4}
+
+/* ── PILLS ── */
+.pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.75rem}
+.pill{font-size:12px;padding:4px 12px;border-radius:20px;border:0.5px solid}
+.pill-blue{background:#E6F1FB;color:#0C447C;border-color:#B5D4F4}
+.pill-teal{background:#E1F5EE;color:#085041;border-color:#9FE1CB}
+.pill-amber{background:#FAEEDA;color:#633806;border-color:#FAC775}
+.pill-purple{background:#EEEDFE;color:#3C3489;border-color:#CECBF6}
+.pill-coral{background:#FAECE7;color:#712B13;border-color:#F5C4B3}
+
+/* ── METRICS / TARGETS ── */
+.metrics-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1rem;margin-bottom:2rem}
+.metric{background:var(--color-background-secondary, #f5f5f5);border-radius:8px;padding:1rem;text-align:center}
+.metric-num{font-size:1.4rem;font-weight:500;color:#185FA5}
+.metric-label{font-size:11.5px;color:var(--color-text-secondary, #666);margin-top:3px}
+.target-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.75rem;margin-bottom:2rem}
+.target-box{background:var(--color-background-secondary, #f5f5f5);border-radius:8px;padding:1rem;text-align:center;border:0.5px dashed var(--color-border-secondary, #ccc)}
+.target-num{font-size:1.3rem;font-weight:500;color:#BA7517}
+.target-label{font-size:11px;color:var(--color-text-secondary, #666);margin-top:3px}
+.target-note{font-size:10px;color:#BA7517;margin-top:2px;font-style:italic}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:1.5rem}
+.timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:1px;background:var(--color-border-tertiary, #e5e5e5)}
+.tl-item{position:relative;margin-bottom:1.5rem}
+.tl-dot{position:absolute;left:-1.5rem;top:2px;width:14px;height:14px;border-radius:50%;background:#185FA5;border:3px solid var(--color-background-primary, #fff);box-shadow:0 0 0 1px #185FA5}
+.tl-title{font-size:14px;font-weight:500;color:var(--color-text-primary, #111)}
+.tl-sub{font-size:12.5px;color:var(--color-text-secondary, #666);margin-top:3px;line-height:1.5}
+
+/* ── TEAM ── */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.25rem}
+.team-card{background:var(--color-background-primary, #fff);border:0.5px solid var(--color-border-tertiary, #e5e5e5);border-radius:16px;padding:1.5rem 1rem 1.25rem;display:flex;flex-direction:column;align-items:center;text-align:center;transition:box-shadow 0.2s,transform 0.2s}
+.team-card:hover{box-shadow:0 8px 28px rgba(0,0,0,0.10);transform:translateY(-3px)}
+.avatar{width:90px;height:90px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:500;flex-shrink:0;margin-bottom:1rem;overflow:hidden;position:relative}
+.avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;border-radius:50%}
+.avatar-ring-blue{border:3px solid #185FA5;box-shadow:0 0 0 3px #E6F1FB}
+.avatar-ring-teal{border:3px solid #0F6E56;box-shadow:0 0 0 3px #E1F5EE}
+.avatar-ring-purple{border:3px solid #534AB7;box-shadow:0 0 0 3px #EEEDFE}
+.avatar-ring-amber{border:3px solid #BA7517;box-shadow:0 0 0 3px #FAEEDA}
+.av-blue{background:#E6F1FB;color:#0C447C}.av-teal{background:#E1F5EE;color:#085041}
+.av-purple{background:#EEEDFE;color:#3C3489}.av-coral{background:#FAECE7;color:#712B13}
+.team-name{font-size:13.5px;font-weight:600;color:var(--color-text-primary, #111);line-height:1.35}
+.team-role{font-size:12px;color:var(--color-text-secondary, #666);margin-top:4px}
+.role-badge{display:inline-block;font-size:10.5px;padding:3px 12px;border-radius:20px;margin-top:9px;font-weight:500}
+.rb-principal{background:#E6F1FB;color:#0C447C;border:0.5px solid #B5D4F4}
+.rb-coordinator{background:#E1F5EE;color:#085041;border:0.5px solid #9FE1CB}
+.rb-cocoord{background:#EEEDFE;color:#3C3489;border:0.5px solid #CECBF6}
+.rb-techguru{background:#FAEEDA;color:#633806;border:0.5px solid #FAC775}
+
+/* ── CONTACT ── */
+.contact-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.contact-box{background:var(--color-background-secondary, #f5f5f5);border-radius:10px;padding:1.25rem}
+.contact-label{font-size:11.5px;color:var(--color-text-secondary, #666);margin-bottom:4px}
+.contact-val{font-size:14px;color:var(--color-text-primary, #111);font-weight:500}
+.cinfo-row{display:flex;align-items:flex-start;gap:12px;background:var(--color-background-secondary, #f5f5f5);border-radius:10px;padding:1.25rem;margin-bottom:1rem}
+.cinfo-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* ── MISC ── */
+.launch-banner{background:#E1F5EE;border:0.5px solid #9FE1CB;border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.75rem;display:flex;align-items:flex-start;gap:10px}
+.launch-dot{width:10px;height:10px;border-radius:50%;background:#0F6E56;margin-top:4px;flex-shrink:0}
+.launch-text{font-size:13px;color:#085041;line-height:1.6}
+.plan-card{background:var(--color-background-primary, #fff);border:0.5px solid var(--color-border-tertiary, #e5e5e5);border-radius:12px;padding:1.25rem}
+.plan-badge{display:inline-block;font-size:10.5px;padding:3px 10px;border-radius:20px;margin-bottom:0.75rem;font-weight:500}
+.badge-planned{background:#FAEEDA;color:#633806;border:0.5px solid #FAC775}
+.badge-upcoming{background:#EEEDFE;color:#3C3489;border:0.5px solid #CECBF6}
+.badge-launched{background:#E1F5EE;color:#085041;border:0.5px solid #9FE1CB}
+.plan-title{font-size:14px;font-weight:500;color:var(--color-text-primary, #111);margin-bottom:0.35rem}
+.plan-desc{font-size:12.5px;color:var(--color-text-secondary, #666);line-height:1.6}
+.divider{height:0.5px;background:var(--color-border-tertiary, #e5e5e5);margin:0 2rem}
+.footer-band{background:var(--color-background-secondary, #f5f5f5);border-top:0.5px solid var(--color-border-tertiary, #e5e5e5);padding:1.5rem 2rem;text-align:center}
+.footer-band p{font-size:12px;color:var(--color-text-secondary, #666);line-height:1.6}
+.badge-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:0.75rem;justify-content:center}
+.fbadge{font-size:11px;padding:3px 10px;border-radius:20px;background:var(--color-background-primary, #fff);border:0.5px solid var(--color-border-secondary, #ccc);color:var(--color-text-secondary, #666)}
+.tab-content{display:none}.tab-content.visible{display:block}
+.sec-gap{margin-top:2rem}
+</style>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">AICTE Approved · AQIS ID: IDEA2024000132</div>
+  <h1>IDEA Lab — Innovate. Design. Engineer. Apply.</h1>
+  <p>The <strong>AICTE–IDEA (Idea Development, Evaluation &amp; Application)</strong> Lab at Maharaja Institute of Technology Thandavapura is a 24×7 open maker space empowering students to transform STEM ideas into real prototypes.</p>
+  <p class="hero-tagline">"Engage · Explore · Experience · Express · Excel"</p>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-num">5000+</div><div class="stat-label">sq. ft. space</div></div>
+    <div class="stat-box"><div class="stat-num">₹90L</div><div class="stat-label">total investment</div></div>
+    <div class="stat-box"><div class="stat-num">24×7</div><div class="stat-label">open access</div></div>
+    <div class="stat-box"><div class="stat-num">2026</div><div class="stat-label">established</div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainnav">
+  <div class="nav-item active" onclick="showTab('about')">About</div>
+  <div class="nav-item" onclick="showTab('facilities')">Facilities</div>
+  <div class="nav-item" onclick="showTab('equipment')">Equipment</div>
+  <div class="nav-item" onclick="showTab('activities')">Activities</div>
+  <div class="nav-item" onclick="showTab('outcomes')">Outcomes</div>
+  <div class="nav-item" onclick="showTab('team')">Team</div>
+  <div class="nav-item" onclick="showTab('contact')">Contact</div>
+</nav>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<div id="tab-about" class="tab-content visible">
+<div class="section">
+  <div class="sec-head sh-blue">
+    <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+    <div class="sec-head-text">What is AICTE IDEA Lab?</div>
+  </div>
+  <p class="section-sub">The All India Council for Technical Education (AICTE) launched the IDEA Lab scheme in January 2021 to establish innovation hubs in approved engineering institutions. Co-funded by AICTE (50%) and the institution (50%), each lab receives up to ₹90L to build a cutting-edge fabrication and design ecosystem aligned with NEP 2020.</p>
+
+  <div class="equip-gallery">
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="Hands-on Training.png" alt="Hands-on Learning"></div>
+      <div class="equip-img-label">Hands-on Learning</div>
+      <div class="equip-img-sub">Students get real-world experience through ideation, prototyping, and product development — bridging classroom theory with practical application.</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="Interdisciplinary Collaboration.png" alt="Interdisciplinary Collaboration"></div>
+      <div class="equip-img-label">Interdisciplinary Collaboration</div>
+      <div class="equip-img-sub">Open to all departments — engineering, science, and management — encouraging cross-pollination of ideas and diverse team building.</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="21st Century Skills.png" alt="21st Century Skills"></div>
+      <div class="equip-img-label">21st Century Skills</div>
+      <div class="equip-img-sub">Critical thinking, design thinking, problem solving, communication, and lifelong learning — skills demanded by modern industry and global innovation.</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="IP &amp; Entrepreneurship.png" alt="IP &amp; Entrepreneurship"></div>
+      <div class="equip-img-label">IP &amp; Entrepreneurship</div>
+      <div class="equip-img-sub">Support for patents, copyrights, incubation, and startup development. Students and faculty are guided from idea to commercialization.</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="Industry Connect.png" alt="Industry Connect"></div>
+      <div class="equip-img-label">Industry Connect</div>
+      <div class="equip-img-sub">Outreach to MSMEs, startups, and industries for consultancy, testing services, and resource sharing under the "Make in India" initiative.</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="Societal Impact.png" alt="Societal Impact"></div>
+      <div class="equip-img-label">Societal Impact</div>
+      <div class="equip-img-sub">IDEA Lab addresses community needs through NGO partnerships and focuses on food, agriculture, healthcare, and smart city solutions.</div>
+    </div>
+  </div>
+
+  <div class="sec-gap">
+    <div class="sec-head sh-blue">
+      <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M8 12l4-4 4 4"/></svg></div>
+      <div class="sec-head-text">Vision &amp; Mission</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem">
+      <div style="background:var(--color-background-secondary, #f5f5f5);border-radius:10px;padding:1.25rem;border-left:3px solid #185FA5">
+        <div style="font-size:11.5px;font-weight:500;color:#185FA5;margin-bottom:0.5rem">VISION</div>
+        <p style="font-size:13px;color:var(--color-text-secondary, #666);line-height:1.7">Develop commercially viable products that address socio-economic needs through entrepreneurship and open innovation, leveraging the interdisciplinary approach of STEM (Science, Technology, Engineering, and Mathematics).</p>
+      </div>
+      <div style="background:var(--color-background-secondary, #f5f5f5);border-radius:10px;padding:1.25rem;border-left:3px solid #0F6E56">
+        <div style="font-size:11.5px;font-weight:500;color:#0F6E56;margin-bottom:0.5rem">MISSION</div>
+        <ul style="font-size:13px;color:var(--color-text-secondary, #666);line-height:1.8;padding-left:1.1rem;margin:0">
+          <li>Inspire students and researchers to harness their intellectual capabilities to generate new and original ideas.</li>
+          <li>Provide a centralized platform for students and researchers with innovative ideas and creative talents.</li>
+          <li>Make students more curious, imaginative, and creative, making engineering education more engaging.</li>
+          <li>Encourage faculty members to participate in industry interactions and research activities.</li>
+          <li>Establish the IDEA Lab to nurture the creative and entrepreneurial potential among young engineering students, providing seed funding for early start-up exploration from idea to prototype and Minimal Viable Product design.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ FACILITIES ═══════════ -->
+<div id="tab-facilities" class="tab-content">
+<div class="section">
+  <div class="sec-head sh-teal">
+    <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+    <div class="sec-head-text">Lab Zones &amp; Infrastructure</div>
+  </div>
+  <p class="section-sub">The IDEA Lab spans 5000+ sq. ft. and is organized into distinct functional zones, each equipped with industry-standard tools and open to all students, faculty, schools, and nearby institutions.</p>
+
+  <div class="zone-strip">
+    <div class="zone">
+      <div class="zone-icon" style="background:#E6F1FB"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+      <div class="zone-name">Maker Space</div><div class="zone-desc">CNC, woodworking &amp; fabrication tools</div>
+    </div>
+    <div class="zone">
+      <div class="zone-icon" style="background:#E1F5EE"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></div>
+      <div class="zone-name">3D Print Zone</div><div class="zone-desc">FDM &amp; SLA printers, 3D scanner</div>
+    </div>
+    <div class="zone">
+      <div class="zone-icon" style="background:#FAEEDA"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#BA7517" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <div class="zone-name">Electronics Lab</div><div class="zone-desc">IoT, PCB milling, microcontrollers</div>
+    </div>
+    <div class="zone">
+      <div class="zone-icon" style="background:#EEEDFE"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <div class="zone-name">Design Studio</div><div class="zone-desc">CAD/CAM, Fusion 360, Inkscape</div>
+    </div>
+    <div class="zone">
+      <div class="zone-icon" style="background:#FAECE7"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#993C1D" stroke-width="2"><circle cx="12" cy="8" r="2"/><path d="M12 2v2M12 10v4M4.93 4.93l1.41 1.41M17.66 6.34l1.41-1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 19.07l-1.41-1.41"/><path d="M9 14H5l-1 6h16l-1-6h-4"/></svg></div>
+      <div class="zone-name">Robotics Lab</div><div class="zone-desc">Automation kits, programmable bots</div>
+    </div>
+    <div class="zone">
+      <div class="zone-icon" style="background:#EAF3DE"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3B6D11" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="zone-name">Ideation Room</div><div class="zone-desc">Brainstorming &amp; mentoring space</div>
+    </div>
+  </div>
+
+  <div class="sec-head sh-teal">
+    <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+    <div class="sec-head-text">Infrastructure Highlights</div>
+  </div>
+  <div class="cards-2" style="margin-top:1rem">
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.6rem"><div class="card-icon icon-blue" style="margin:0;width:28px;height:28px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div><h3 style="margin:0">Physical Infrastructure</h3></div>
+      <div class="pills"><span class="pill pill-blue">5000+ sq. ft. space</span><span class="pill pill-blue">30-node computer lab</span><span class="pill pill-blue">Project lab</span><span class="pill pill-blue">Seminar hall</span><span class="pill pill-blue">High-speed internet</span><span class="pill pill-blue">24×7 access</span><span class="pill pill-blue">CCTV surveillance</span></div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.6rem"><div class="card-icon icon-teal" style="margin:0;width:28px;height:28px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3 style="margin:0">Software &amp; Design Tools</h3></div>
+      <div class="pills"><span class="pill pill-teal">Fusion 360</span><span class="pill pill-teal">Eagle PCB</span><span class="pill pill-teal">Inkscape</span><span class="pill pill-teal">AutoCAD</span><span class="pill pill-teal">Ultimaker Cura</span><span class="pill pill-teal">Arduino IDE</span><span class="pill pill-teal">MATLAB</span><span class="pill pill-teal">Python / Jupyter</span></div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.6rem"><div class="card-icon icon-amber" style="margin:0;width:28px;height:28px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#BA7517" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3 style="margin:0">Safety &amp; Compliance</h3></div>
+      <div class="pills"><span class="pill pill-amber">Fire extinguishers</span><span class="pill pill-amber">Safety goggles &amp; gloves</span><span class="pill pill-amber">First aid kit</span><span class="pill pill-amber">ESD-safe workstations</span><span class="pill pill-amber">Dust extraction system</span></div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.6rem"><div class="card-icon icon-purple" style="margin:0;width:28px;height:28px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3 style="margin:0">Access &amp; Outreach</h3></div>
+      <div class="pills"><span class="pill pill-purple">Open to all departments</span><span class="pill pill-purple">Nearby institutions</span><span class="pill pill-purple">Schools &amp; polytechnics</span><span class="pill pill-purple">MSME &amp; startups</span><span class="pill pill-purple">NGO collaborations</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ EQUIPMENT ═══════════ -->
+<div id="tab-equipment" class="tab-content">
+<div class="section">
+  <div class="sec-head sh-amber">
+    <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#BA7517" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+    <div class="sec-head-text">Major Equipment &amp; Tools</div>
+  </div>
+  <p class="section-sub">The lab houses a comprehensive list of industry-standard equipment for fabrication, electronics, prototyping, and digital design — all available under scheduled access.</p>
+
+  <div class="sub-head">
+    <div class="sub-head-bar sub-bar-blue"></div>
+    <div class="sub-head-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2" style="vertical-align:middle;margin-right:4px"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Fabrication &amp; Manufacturing</div>
+  </div>
+  <div class="equip-gallery">
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="Laser cutter.png" alt="Laser Cutter &amp; Engraver"></div>
+      <div class="equip-img-label">Laser Cutter &amp; Engraver</div>
+      <div class="equip-img-sub">CO₂ laser — wood, acrylic, leather</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="3D PRINTER.webp" alt="FDM 3D Printer"></div>
+      <div class="equip-img-label">FDM 3D Printer</div>
+      <div class="equip-img-sub">Aion MK 500 — fused deposition modeling</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="3D scanner.JPG" alt="3D Scanner"></div>
+      <div class="equip-img-label">3D Scanner</div>
+      <div class="equip-img-sub">Calibry Mini — structured light scanning</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="CNC wood router.JPG" alt="CNC Wood Router"></div>
+      <div class="equip-img-label">CNC Wood Router</div>
+      <div class="equip-img-sub">Computer-numerical controlled milling</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="Vinyl cutter.JPG" alt="Vinyl Cutter"></div>
+      <div class="equip-img-label">Vinyl Cutter</div>
+      <div class="equip-img-sub">Sticker, decal &amp; signage production</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="Sublamination Printer.JPG" alt="Sublimation Printer"></div>
+      <div class="equip-img-label">Sublimation Printer</div>
+      <div class="equip-img-sub">Custom print on fabric, ceramics</div>
+    </div>
+  </div>
+
+  <div class="sub-head">
+    <div class="sub-head-bar sub-bar-teal"></div>
+    <div class="sub-head-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2" style="vertical-align:middle;margin-right:4px"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Electronics &amp; IoT</div>
+  </div>
+  <div class="equip-gallery">
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="pcb milling.JPG" alt="PCB Milling Machine"></div>
+      <div class="equip-img-label">PCB Milling Machine</div>
+      <div class="equip-img-sub">Precision circuit board prototyping</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="mso.JPG" alt="Mixed Signal Oscilloscope"></div>
+      <div class="equip-img-label">Mixed Signal Oscilloscope</div>
+      <div class="equip-img-sub">Signal analysis &amp; debugging</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="DSO.JPG" alt="Digital Storage Oscilloscope"></div>
+      <div class="equip-img-label">Digital Storage Oscilloscope</div>
+      <div class="equip-img-sub">Waveform capture &amp; measurement</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="reflow oven.JPG" alt="Reflow Oven"></div>
+      <div class="equip-img-label">Reflow Oven</div>
+      <div class="equip-img-sub">SMD soldering &amp; PCB assembly</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="NodeMCU.JPG" alt="NodeMCU / ESP8266"></div>
+      <div class="equip-img-label">NodeMCU / ESP8266 Kits</div>
+      <div class="equip-img-sub">IoT development &amp; wireless modules</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="soldering and desoldering.JPG" alt="Soldering Station"></div>
+      <div class="equip-img-label">Soldering &amp; Desoldering Station</div>
+      <div class="equip-img-sub">Professional rework stations</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="Rasberry pi.JPG" alt="Raspberry Pi Kits"></div>
+      <div class="equip-img-label">Arduino / Raspberry Pi Kits</div>
+      <div class="equip-img-sub">Embedded systems &amp; prototyping</div>
+    </div>
+  </div>
+
+  <div class="sub-head">
+    <div class="sub-head-bar sub-bar-amber"></div>
+    <div class="sub-head-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#BA7517" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Hand Tools &amp; Measurement</div>
+  </div>
+  <div class="equip-gallery">
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="power tools.JPG" alt="Power Tools Set"></div>
+      <div class="equip-img-label">Power Tools Set</div>
+      <div class="equip-img-sub">Drills, grinders, jigsaw</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="manul pcb drill.JPG" alt="Manual PCB Drill"></div>
+      <div class="equip-img-label">Manual PCB Drill</div>
+      <div class="equip-img-sub">Precision drilling for circuits</div>
+    </div>
+    <div class="equip-img-card">
+      <div class="equip-img-wrap"><img src="c clamps and vices.JPG" alt="C-Clamps &amp; Vices"></div>
+      <div class="equip-img-label">C-Clamps &amp; Vices</div>
+      <div class="equip-img-sub">Holding &amp; clamping tools</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ ACTIVITIES ═══════════ -->
+<div id="tab-activities" class="tab-content">
+<div class="section">
+  <div class="sec-head sh-purple">
+    <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+    <div class="sec-head-text">Programs &amp; Activities</div>
+  </div>
+  <p class="section-sub">IDEA Lab runs a structured calendar of events ensuring year-round engagement for students, faculty, industry professionals, and school students.</p>
+
+  <div class="metrics-row">
+    <div class="metric"><div class="metric-num">8</div><div class="metric-label">Ideation workshops / year</div></div>
+    <div class="metric"><div class="metric-num">10</div><div class="metric-label">Skilling programs</div></div>
+    <div class="metric"><div class="metric-num">6</div><div class="metric-label">Faculty boot camps</div></div>
+    <div class="metric"><div class="metric-num">4</div><div class="metric-label">FDPs in 2 years</div></div>
+    <div class="metric"><div class="metric-num">6mo</div><div class="metric-label">Internship duration</div></div>
+  </div>
+
+  <div class="cards-2">
+    <div class="card"><div class="card-icon icon-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><h3>Ideation Workshops</h3><p>8 structured workshops per year focusing on critical thinking, design thinking, and problem-solving for real-world applications across all engineering disciplines.</p></div>
+    <div class="card"><div class="card-icon icon-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div><h3>Student Internships</h3><p>Hands-on 2–6 month internship programs providing industry-level experience in prototype development, fabrication, and innovation projects.</p></div>
+    <div class="card"><div class="card-icon icon-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#BA7517" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div><h3>Faculty Development Programs</h3><p>4 FDPs over two years offering emerging technology insights, research methodologies, and pedagogical innovation strategies to faculty members.</p></div>
+    <div class="card"><div class="card-icon icon-purple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Industry Awareness Workshops</h3><p>Sessions bringing industry professionals to campus, providing networking opportunities and exposing students and faculty to current market trends.</p></div>
+    <div class="card"><div class="card-icon icon-coral"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#993C1D" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3>Hackathons &amp; Competitions</h3><p>National and international innovation competitions, smart India hackathons, and internal makethons to spark creative problem-solving and teamwork.</p></div>
+    <div class="card"><div class="card-icon icon-green"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B6D11" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>IPR &amp; Startup Support</h3><p>End-to-end support for patent filing, technology transfer, incubation, and commercialization. Students are mentored from ideation to product launch.</p></div>
+  </div>
+
+  <div class="sec-gap">
+    <div class="sec-head sh-purple">
+      <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <div class="sec-head-text">Sectors of Focus</div>
+    </div>
+    <div class="pills" style="margin-top:1rem">
+      <span class="pill pill-blue">Food &amp; Agriculture</span><span class="pill pill-teal">Healthcare</span><span class="pill pill-amber">Electronics &amp; Communications</span><span class="pill pill-purple">Road Transportation</span><span class="pill pill-coral">Advanced Sensors</span><span class="pill pill-blue">Telecommunications</span><span class="pill pill-teal">Engineering Industries</span><span class="pill pill-amber">Materials &amp; Processes</span><span class="pill pill-purple">Smart Cities</span><span class="pill pill-coral">Renewable Energy</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ OUTCOMES ═══════════ -->
+<div id="tab-outcomes" class="tab-content">
+<div class="section">
+  <div class="sec-head sh-coral">
+    <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#993C1D" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+    <div class="sec-head-text">Impact &amp; Planned Outcomes</div>
+  </div>
+  <p class="section-sub">The IDEA Lab at MIT Thandavapura has just commenced its journey. We are in the exciting early phase of setting up activities, enrolling students, and building our innovation ecosystem. Below are our targets and the roadmap we are actively working towards.</p>
+
+  <div class="launch-banner">
+    <div class="launch-dot"></div>
+    <div class="launch-text">The IDEA Lab is newly established in 2026 and activities are being planned and initiated. The metrics below represent our goals and targets for the first two years of operation. We look forward to building this space together with our students, faculty, and industry partners.</div>
+  </div>
+
+  <div class="sub-head"><div class="sub-head-bar sub-bar-coral"></div><div class="sub-head-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#993C1D" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Targets for Year 1 &amp; Year 2</div></div>
+  <div class="target-row" style="margin-top:0.75rem">
+    <div class="target-box"><div class="target-num">200+</div><div class="target-label">Students to be trained</div><div class="target-note">Target — Year 1</div></div>
+    <div class="target-box"><div class="target-num">20+</div><div class="target-label">Prototypes to be built</div><div class="target-note">Target — Year 1</div></div>
+    <div class="target-box"><div class="target-num">5+</div><div class="target-label">Patents to be filed</div><div class="target-note">Target — Year 2</div></div>
+    <div class="target-box"><div class="target-num">2+</div><div class="target-label">Startups to incubate</div><div class="target-note">Target — Year 2</div></div>
+    <div class="target-box"><div class="target-num">8</div><div class="target-label">Workshops planned</div><div class="target-note">Year 1 calendar</div></div>
+  </div>
+
+  <div class="sec-head sh-coral">
+    <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#993C1D" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg></div>
+    <div class="sec-head-text">IDEA Lab Impact Framework</div>
+  </div>
+  <div class="cards-2" style="margin-top:1rem">
+    <div class="card" style="border-left:3px solid #185FA5"><div style="font-size:11.5px;font-weight:500;color:#185FA5;margin-bottom:0.5rem">INPUT (Setting up)</div><div class="pills"><span class="pill pill-blue">User registration drive</span><span class="pill pill-blue">Equipment commissioning</span><span class="pill pill-blue">Initial investment ready</span><span class="pill pill-blue">Faculty orientation</span></div></div>
+    <div class="card" style="border-left:3px solid #0F6E56"><div style="font-size:11.5px;font-weight:500;color:#0F6E56;margin-bottom:0.5rem">PROCESS (Initiating)</div><div class="pills"><span class="pill pill-teal">Events being scheduled</span><span class="pill pill-teal">Equipment trials underway</span><span class="pill pill-teal">Workshop series planned</span><span class="pill pill-teal">MoUs being signed</span></div></div>
+    <div class="card" style="border-left:3px solid #BA7517"><div style="font-size:11.5px;font-weight:500;color:#BA7517;margin-bottom:0.5rem">OUTPUT (Targeted)</div><div class="pills"><span class="pill pill-amber">First prototypes planned</span><span class="pill pill-amber">Patent filing roadmap</span><span class="pill pill-amber">Revenue model drafted</span><span class="pill pill-amber">Startup pipeline forming</span></div></div>
+    <div class="card" style="border-left:3px solid #534AB7"><div style="font-size:11.5px;font-weight:500;color:#534AB7;margin-bottom:0.5rem">RECOGNITION (Aspired)</div><div class="pills"><span class="pill pill-purple">Targeting SIH participation</span><span class="pill pill-purple">Seeking industry mentors</span><span class="pill pill-purple">National event entries</span><span class="pill pill-purple">AICTE portal reporting</span></div></div>
+  </div>
+
+  <div class="sec-gap">
+    <div class="sec-head sh-coral">
+      <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#993C1D" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <div class="sec-head-text">Upcoming Activity Roadmap</div>
+    </div>
+    <p class="section-sub" style="margin-top:0.5rem">A snapshot of the planned activities being organized as we kick off the IDEA Lab experience at MIT Thandavapura.</p>
+    <div class="cards-2">
+      <div class="plan-card"><div class="plan-badge badge-launched">Launched</div><div class="plan-title">IDEA Lab Inauguration &amp; Orientation</div><div class="plan-desc">Formal inauguration of the lab with student and faculty orientation sessions covering lab rules, equipment overview, and the IDEA Lab vision. All departments invited.</div></div>
+      <div class="plan-card"><div class="plan-badge badge-upcoming">Upcoming — May 2026</div><div class="plan-title">Design Thinking Boot Camp</div><div class="plan-desc">A 2-day intensive boot camp on design thinking methodology — covering empathy mapping, ideation, prototyping, and user testing frameworks.</div></div>
+      <div class="plan-card"><div class="plan-badge badge-upcoming">Upcoming — June 2026</div><div class="plan-title">Equipment Hands-on Training</div><div class="plan-desc">Structured training sessions on 3D printers, laser cutter, CNC router, and PCB milling machine. Batches of 20 students per session, conducted by TechGurus.</div></div>
+      <div class="plan-card"><div class="plan-badge badge-planned">Planned — July 2026</div><div class="plan-title">Ideation Workshop Series (Round 1)</div><div class="plan-desc">First of 8 annual ideation workshops. Students from all branches will pitch ideas addressing local and national challenges. Best ideas receive lab support.</div></div>
+      <div class="plan-card"><div class="plan-badge badge-planned">Planned — Aug 2026</div><div class="plan-title">Industry Expert Guest Lecture Series</div><div class="plan-desc">Monthly sessions with MSME leaders, startup founders, and domain experts to expose students to real-world technology trends and entrepreneurship pathways.</div></div>
+      <div class="plan-card"><div class="plan-badge badge-planned">Planned — Sep 2026</div><div class="plan-title">Internal Makethon — "MIT Makes"</div><div class="plan-desc">A 24-hour internal hackathon where interdisciplinary student teams build working prototypes. Winners get mentorship support and dedicated lab time.</div></div>
+      <div class="plan-card"><div class="plan-badge badge-planned">Planned — Oct 2026</div><div class="plan-title">Faculty Development Program (FDP 1 of 4)</div><div class="plan-desc">First FDP on IoT, AI/ML, and rapid prototyping — equipping faculty to mentor student innovation projects more effectively.</div></div>
+      <div class="plan-card"><div class="plan-badge badge-planned">Planned — Dec 2026</div><div class="plan-title">Smart India Hackathon Preparatory Camp</div><div class="plan-desc">A prep camp to train student teams for SIH 2027. Problem statements discussed and prototype plans drafted in collaboration with TechGurus.</div></div>
+    </div>
+  </div>
+
+  <div class="sec-gap">
+    <div class="sec-head sh-coral">
+      <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#993C1D" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="sec-head-text">Our Innovation Journey Begins</div>
+    </div>
+    <div class="timeline" style="margin-top:1.25rem">
+      <div class="tl-item"><div class="tl-dot" style="background:#0F6E56;box-shadow:0 0 0 1px #0F6E56"></div><div class="tl-title">IDEA Lab Established — 2026</div><div class="tl-sub">Officially set up with AICTE approval (AQIS ID: IDEA2024000132) and a total investment of ₹90 Lakhs. Infrastructure commissioned and team onboarded.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#BA7517;box-shadow:0 0 0 1px #BA7517"></div><div class="tl-title">Student Registration Drive — In Progress</div><div class="tl-sub">Enrolling students across all engineering departments as IDEA Lab members. Equipment access, safety briefings, and induction programme are being conducted.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#534AB7;box-shadow:0 0 0 1px #534AB7"></div><div class="tl-title">First Workshop Series — Planned Q2 2026</div><div class="tl-sub">Design thinking and hands-on equipment workshops will be the first milestone activities, introducing students to the maker mindset and STEM application.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#B4B2A9;box-shadow:0 0 0 1px #B4B2A9"></div><div class="tl-title">First Prototype Development — Target Q3 2026</div><div class="tl-sub">Student project teams will begin working on their first prototypes with guidance from TechGurus and lab coordinators. Industry problems will be prioritized.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#B4B2A9;box-shadow:0 0 0 1px #B4B2A9"></div><div class="tl-title">Patent Filing &amp; IP Support — Target 2027</div><div class="tl-sub">Promising innovations from student and faculty projects will be taken through the IPR pipeline. Consultancy tie-ups for patent support are being explored.</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ TEAM ═══════════ -->
+<div id="tab-team" class="tab-content">
+<div class="section">
+  <div class="sec-head sh-green">
+    <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#27500A" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+    <div class="sec-head-text">Leadership &amp; Coordinators</div>
+  </div>
+  <p class="section-sub">The IDEA Lab is guided by an experienced team of faculty coordinators, mentors, and TechGurus dedicated to driving innovation at MIT Thandavapura.</p>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="avatar avatar-ring-blue">
+        <img src="krishne gowda.png" alt="Dr. Y T Krishne Gowda" onerror="this.style.display='none';this.parentNode.style.background='#E6F1FB';this.parentNode.innerHTML='<span style=\'color:#0C447C;font-size:22px;font-weight:600\'>YG</span>'">
+      </div>
+      <div class="team-name">Dr. Y T Krishne Gowda</div>
+      <span class="role-badge rb-principal">Chief Mentor</span>
+    </div>
+    <div class="team-card">
+      <div class="avatar avatar-ring-teal">
+        <img src="chethan.jpg" alt="Dr. H K Chethan" onerror="this.style.display='none';this.parentNode.style.background='#E1F5EE';this.parentNode.innerHTML='<span style=\'color:#085041;font-size:22px;font-weight:600\'>HC</span>'">
+      </div>
+      <div class="team-name">Dr. H K Chethan</div>
+      <span class="role-badge rb-coordinator">Coordinator</span>
+    </div>
+    <div class="team-card">
+      <div class="avatar avatar-ring-purple">
+        <img src="sachin.jpg" alt="Dr. Sachin S" onerror="this.style.display='none';this.parentNode.style.background='#EEEDFE';this.parentNode.innerHTML='<span style=\'color:#3C3489;font-size:22px;font-weight:600\'>SS</span>'">
+      </div>
+      <div class="team-name">Dr. Sachin S</div>
+      <span class="role-badge rb-cocoord">Co-Coordinator</span>
+    </div>
+    <div class="team-card">
+      <div class="avatar avatar-ring-amber">
+        <img src="ajay.jpeg" alt="Dr. Ajay Kumar K" onerror="this.style.display='none';this.parentNode.style.background='#FAEEDA';this.parentNode.innerHTML='<span style=\'color:#633806;font-size:22px;font-weight:600\'>AK</span>'">
+      </div>
+      <div class="team-name">Dr. Ajay Kumar K</div>
+      <span class="role-badge rb-techguru">TechGuru</span>
+    </div>
+    <div class="team-card">
+      <div class="avatar avatar-ring-amber">
+        <img src="krupesh.jpg" alt="Dr. Krupesh K S" onerror="this.style.display='none';this.parentNode.style.background='#FAEEDA';this.parentNode.innerHTML='<span style=\'color:#633806;font-size:22px;font-weight:600\'>KK</span>'">
+      </div>
+      <div class="team-name">Dr. Krupesh K S</div>
+      <span class="role-badge rb-techguru">TechGuru</span>
+    </div>
+    <div class="team-card">
+      <div class="avatar avatar-ring-amber">
+        <img src="ravikumar.png" alt="Prof. Ravikumar K" onerror="this.style.display='none';this.parentNode.style.background='#FAEEDA';this.parentNode.innerHTML='<span style=\'color:#633806;font-size:22px;font-weight:600\'>RK</span>'">
+      </div>
+      <div class="team-name">Prof. Ravikumar K</div>
+      <span class="role-badge rb-techguru">TechGuru</span>
+    </div>
+    <div class="team-card">
+      <div class="avatar avatar-ring-amber">
+        <img src="guruprasad.png" alt="Prof. Guruprasad" onerror="this.style.display='none';this.parentNode.style.background='#FAEEDA';this.parentNode.innerHTML='<span style=\'color:#633806;font-size:22px;font-weight:600\'>GP</span>'">
+      </div>
+      <div class="team-name">Prof. Guruprasad</div>
+      <span class="role-badge rb-techguru">TechGuru</span>
+    </div>
+  </div>
+
+  <div class="sec-gap">
+    <div class="sec-head sh-green">
+      <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#27500A" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="sec-head-text">Advisory Committee</div>
+    </div>
+    <p class="section-sub" style="margin-top:0.5rem">The lab is guided by an AICTE-mandated steering committee comprising external industry experts, AICTE nominees, and institutional leaders to ensure quality, direction, and compliance.</p>
+    <div class="pills" style="margin-top:0.5rem">
+      <span class="pill pill-blue">AICTE Regional Advisor</span><span class="pill pill-teal">Industry Expert (MSME)</span><span class="pill pill-amber">Alumni Representative</span><span class="pill pill-purple">IPR Consultant</span><span class="pill pill-coral">Startup Mentor</span><span class="pill pill-blue">Social Innovation Expert</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<div id="tab-contact" class="tab-content">
+<div class="section">
+  <div class="sec-head sh-blue">
+    <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+    <div class="sec-head-text">Contact &amp; Location</div>
+  </div>
+  <p class="section-sub">Reach out to the IDEA Lab team for bookings, collaboration proposals, industry partnerships, or general inquiries. The lab is open 9 AM–6 PM (walk-in) and 24×7 for registered members.</p>
+
+  <div class="contact-row" style="margin-bottom:1rem">
+    <div class="cinfo-row" style="margin-bottom:0">
+      <div class="cinfo-icon" style="background:#E6F1FB"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+      <div><div class="contact-label">Coordinator Email</div><div class="contact-val">chethanhk@mitmysore.in</div></div>
+    </div>
+    <div class="cinfo-row" style="margin-bottom:0">
+      <div class="cinfo-icon" style="background:#E1F5EE"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.61 5.61l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+      <div><div class="contact-label">Lab Phone</div><div class="contact-val">0821-3248795</div></div>
+    </div>
+    <div class="cinfo-row" style="margin-bottom:0">
+      <div class="cinfo-icon" style="background:#FAEEDA"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#BA7517" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div><div class="contact-label">Open Hours (Walk-in)</div><div class="contact-val">9:00 AM – 6:00 PM</div></div>
+    </div>
+    <div class="cinfo-row" style="margin-bottom:0">
+      <div class="cinfo-icon" style="background:#EEEDFE"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+      <div><div class="contact-label">Member Access</div><div class="contact-val">24 × 7</div></div>
+    </div>
+  </div>
+
+  <div class="cinfo-row" style="margin-bottom:1.5rem">
+    <div class="cinfo-icon" style="background:#E6F1FB"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+    <div><div class="contact-label">Address</div><div class="contact-val">AICTE IDEA Lab Block</div><div style="font-size:13px;color:var(--color-text-secondary, #666);margin-top:2px">Maharaja Institute of Technology Thandavapura, Mysore, Karnataka</div></div>
+  </div>
+
+  <div class="sec-head sh-blue">
+    <div class="sec-head-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+    <div class="sec-head-text">Get Involved</div>
+  </div>
+  <div class="cards-2" style="margin-top:1rem">
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.6rem"><div class="card-icon icon-blue" style="margin:0;width:28px;height:28px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><h3 style="margin:0">Book the Lab</h3></div>
+      <p style="font-size:13px;color:var(--color-text-secondary, #666);margin-bottom:1rem">Students and faculty can reserve equipment slots via the AICTE IDEA Lab portal or by contacting the lab office directly.</p>
+      <button onclick="sendPrompt('How do I register and book equipment at the AICTE IDEA Lab?')" style="font-size:13px;padding:6px 16px;cursor:pointer">Book a Slot ↗</button>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.6rem"><div class="card-icon icon-teal" style="margin:0;width:28px;height:28px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><h3 style="margin:0">Industry Collaboration</h3></div>
+      <p style="font-size:13px;color:var(--color-text-secondary, #666);margin-bottom:1rem">MSMEs, startups, and industries can partner with the IDEA Lab for consultancy, prototype testing, and co-innovation programs.</p>
+      <button onclick="sendPrompt('How can an industry or MSME collaborate with the AICTE IDEA Lab?')" style="font-size:13px;padding:6px 16px;cursor:pointer">Partner With Us ↗</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="divider"></div>
+<div class="footer-band">
+  <p>AICTE–IDEA Lab · Maharaja Institute of Technology Thandavapura, Mysore, Karnataka · Established 2026</p>
+  <p style="margin-top:4px">AQIS Scheme ID: IDEA2024000132 · Approved under AICTE Institutional Development Schemes</p>
+  <div class="badge-row">
+    <span class="fbadge">AICTE Approved</span><span class="fbadge">NEP 2020 Aligned</span><span class="fbadge">NBA Accredited Institution</span><span class="fbadge">Make in India</span><span class="fbadge">Atmanirbhar Bharat</span>
+  </div>
+</div>
+
+<script>
+function showTab(id){
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('visible'));
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('visible');
+  event.target.classList.add('active');
+}
+</script>
